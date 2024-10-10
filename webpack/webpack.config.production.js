@@ -1,6 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const Visualizer = require('webpack-visualizer-plugin');
+const Visualizer = require('webpack-visualizer-plugin2');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
@@ -19,17 +19,17 @@ const object = {
     },
     plugins: [
         new Visualizer({
-            filename: './webpack-prod-stats.html'
+            filename: path.join('..', 'dist', 'statistics.html'),
+            throwOnError: true
         }),
         new CopyWebpackPlugin({
             patterns: [
                 { from: './src/assets', to: 'assets' },
-                { from: './src/assets/favicon.ico', to: 'favicon.ico' },
-                { from: './src/index.html', to: 'index.html' }
+                { from: './src/assets/favicon.ico', to: 'favicon.ico' }
             ]
         }),
         new HtmlWebpackPlugin({
-            template: './src/index.html',
+            template: './index.html',
             inject: false,
             minify: {
                 collapseWhitespace: true,

@@ -1,0 +1,1 @@
+(()=>{"use strict";class n{constructor(){console.log("CONSTRUCTOR")}init(){console.log("INIT")}}const o=document.getElementById("ApplicationContainer");window.onload=function(){!function(){const t=new n;t.HTMLElement=o,t.init()}()}})();

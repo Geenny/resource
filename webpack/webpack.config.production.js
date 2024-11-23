@@ -24,6 +24,7 @@ const object = {
         }),
         new CopyWebpackPlugin({
             patterns: [
+                { from: './src/css', to: 'css' },
                 { from: './src/assets', to: 'assets' },
                 { from: './src/assets/favicon.ico', to: 'favicon.ico' }
             ]

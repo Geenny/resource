@@ -14,7 +14,7 @@ module.exports = {
 	},
 	output: {
 		path: __dirname,
-		filename: 'bundle.js',
+		filename: './dist/bundle.js',
 		publicPath: '/'
 	},
 	resolve: {
@@ -28,10 +28,10 @@ module.exports = {
 	plugins: [
 		new CopyWebpackPlugin({
 			patterns: [
-				{ from: './src/css', to: 'css' },
-				{ from: './src/assets', to: 'assets' },
-				{ from: './src/assets/favicon.ico', to: 'favicon.ico' },
-				{ from: './index.html', to: 'index.html' }
+				{ from: './src/css', to: './dist/css' },
+				{ from: './src/assets', to: './dist/assets' },
+				{ from: './src/assets/favicon.ico', to: './dist/favicon.ico' },
+				{ from: './index.html', to: './index.html' }
 			]
 		})
 	],

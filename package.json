@@ -1,6 +1,6 @@
 {
   "name": "resource",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Resource",
   "main": "index.js",
   "scripts": {

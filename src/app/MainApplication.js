@@ -1,27 +1,21 @@
 // import { Container, Text, Application, Graphics, Point } from "pixi.js";
-// import { Tween } from "@createjs/tweenjs";
-// import ContentManager from "../file/content/ContentManager";
-// import ResourceEvent from "../file/resource/ResourceEvent";
-// import ResourceType from "../file/resource/ResourceType";
-// import UI from "./ui/UI";
+import Content from "./files/content/Content";
 
 // const CLICK = "click", DOWN = "mousedown", UP = "mouseup", OVER = "mouseover", OUT = "mouseout";
 
 export default class MainApplication {
-
-    constructor() {
-        console.log("CONSTRUCTOR");
-    }
-
 
     //
     // INIT
     //
 
     init() {
+        this.content = new Content();
+
         console.log("INIT");
 
     }
+    
 
 
 

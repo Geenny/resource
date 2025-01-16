@@ -84,11 +84,15 @@ export default class ContentDropGrabber extends EventDispathcer {
 
     parseTransferData( dataTransfer ) {
         if ( !dataTransfer || !( dataTransfer.files instanceof FileList ) ) return;
+
+        this._contentStructList = [];
+
         for ( let i = 0; i < dataTransfer.files.length; i++ ) {
             const file = dataTransfer.files[ i ];
             if ( file && file.name ) {
                 const type = typeFromFileNameGet( file.name );
                 const name = nameFromFileNameGet( file.name );
+
                 const contentStruct = { ...ContentStruct, file, type, name };
                 this._contentStructAdd( contentStruct );
             }
@@ -106,9 +110,33 @@ export default class ContentDropGrabber extends EventDispathcer {
         return null;
     }
 
+    isLoadedContentStructAll() {
+        return this._contentStructList.every( contentStruct => contentStruct.state === 2 );
+    }
+
+    contentStructAllLoadedCheck() {
+        if (!this.isLoadedContentStructAll()) return;
+
+        this.loadAllStarted = false;
+        this.dispatchEvent( new ContentDropEvent( ContentDropEvent.ON_LOAD_ALL_COMPLETE, this._contentStructList ) );
+
+        // Clear All
+        while ( this._contentStructList.length > 0 ) {
+            const contentStruct = this._contentStructList.shift();
+            // Clear @ContentStruct
+            contentStruct.result = undefined;
+        }
+    }
+
     _contentStructAdd( contentStruct ) {
         if ( this._contentStructList.indexOf( contentStruct ) >= 0 ) return;
         this._contentStructList.push( contentStruct );
+    }
+    _contentStructRemove( contentStruct ) {
+        const index = this._contentStructList.indexOf( contentStruct );
+        if ( index < 0 ) return false;
+        this._contentStructList.splice( index, 1 );
+        return true;
     }
 
 
@@ -117,6 +145,11 @@ export default class ContentDropGrabber extends EventDispathcer {
     //
 
     startLoadAll() {
+        if ( this.loadAllStarted ) return;
+        this.loadAllStarted = true;
+
+        this.dispatchEvent( new ContentDropEvent( ContentDropEvent.ON_LOAD_ALL_START ) );
+
         for ( let i = 0; i < this._contentStructList.length; i++ ) {
             const contentStruct = this._contentStructList[ i ];
             this._loadStruct( contentStruct );
@@ -157,7 +190,10 @@ export default class ContentDropGrabber extends EventDispathcer {
 
         contentStruct.state = 2;
         contentStruct.result = event.target.result;
-        this.dispatchEvent( new ContentDropEvent( ContentDropEvent.ONLOAD, contentStruct ) );
+
+        this.dispatchEvent( new ContentDropEvent( ContentDropEvent.ON_LOAD, contentStruct ) );
+
+        this.contentStructAllLoadedCheck();
     }
 
 }

@@ -1,5 +1,6 @@
 // import { Container, Text, Application, Graphics, Point } from "pixi.js";
 import Content from "./files/content/Content";
+import Resources from "./files/resource/Resources";
 
 // const CLICK = "click", DOWN = "mousedown", UP = "mouseup", OVER = "mouseover", OUT = "mouseout";
 
@@ -11,6 +12,7 @@ export default class MainApplication {
 
     init() {
         this.content = new Content();
+        this.resources = new Resources();
 
         console.log("INIT");
 

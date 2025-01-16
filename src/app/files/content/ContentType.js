@@ -1,4 +1,6 @@
 const ContentType = {
     IMAGE: "image",
-    ANIMATION: "animation"
+    ANIMATION: "animation",
+    AUDIO: "audio",
+    VIDEO: "video"
 };

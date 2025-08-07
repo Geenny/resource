@@ -39,7 +39,10 @@ export default class Resources {
     resourceSubscribe() {
         if ( this._resource_subscribe ) return;
 
-        this._resource_subscribe = { onComplete: this.onResourceAllComplete.bind( this ), onError: this.onResourceAllError.bind( this ) };
+        this._resource_subscribe = {
+            onComplete: this.onResourceAllComplete.bind( this ),
+            onError: this.onResourceAllError.bind( this )
+        };
 
         dispatcher.addEventListener( ResourceEvent.COMPLETE_PARSE_ALL, this._resource_subscribe.onComplete );
         dispatcher.addEventListener( ResourceEvent.ERROR_PARSE_ALL, this._resource_subscribe.onError );
@@ -54,14 +57,12 @@ export default class Resources {
     }
 
     onResourceAllComplete( event ) {
-        const { resource } = event;
+        const { resource: resourceList } = event;
 
-        resource && resource.length > 0 && resource.forEach( resource => resourceStore.add( resource ) );
+        resourceList && resourceList.length > 0 && resourceList.forEach( resource => resourceStore.add( resource ) );
     }
     onResourceAllError( event ) {
-        const { resourceList = resource } = event;
-        debugger;
+        console.warn("Resources: Not loaded resources!");
     }
-
 
 }

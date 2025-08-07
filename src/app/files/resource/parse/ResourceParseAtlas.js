@@ -48,6 +48,8 @@ export default class ResourceParseAtlas extends ResourceParseAbstract {
 
         this.resourceStruct.ready = true;
 
+        this.resource.create();
+
         this.dispatchResourceComplete();
     }
 

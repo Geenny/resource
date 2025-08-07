@@ -33,13 +33,13 @@ export default class ResourceParseSpine extends ResourceParseAbstract {
     //
 
     parseProcess( resourceList ) {
-        this.resourceListReleventCheck( resourceList );
+        this.resourceListRelevantCheck( resourceList );
         this.parseCheckReady();
     }
 
     parseResourceReadyRemote( resource ) {
         if ( !this.resource || this.resource === resource ) return;
-        this.resourceReleventCheck( resource );
+        this.resourceRelevantCheck( resource );
         this.parseCheckReady();
     }
 
@@ -58,11 +58,11 @@ export default class ResourceParseSpine extends ResourceParseAbstract {
     // RESOURCE
     //
 
-    resourceListReleventCheck( resourceList ) {
-        resourceList.forEach( resource => this.resourceReleventCheck( resource ) );
+    resourceListRelevantCheck( resourceList ) {
+        resourceList.forEach( resource => this.resourceRelevantCheck( resource ) );
     }
 
-    resourceReleventCheck( resource ) {
+    resourceRelevantCheck( resource ) {
         if ( !resource || !resource.ready || resource.type !== ResourceType.SPRITESHEET ) return;
 
         const textureNameList = this.resourceStruct.textureNameList;
@@ -77,6 +77,8 @@ export default class ResourceParseSpine extends ResourceParseAbstract {
 
         this.resourceStruct.instance = spine;
         this.resource.resourceChildAdd( resource );
+
+        this.resource.create();
     }
 
     resourceAttachmentTexturesAdd( attachmentDataList, textures ) {
